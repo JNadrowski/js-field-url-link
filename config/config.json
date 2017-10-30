@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "url-link-field-customizer": {
+      "components": [
+        {
+          "entrypoint": "./lib/extensions/urlLink/UrlLinkFieldCustomizer.js",
+          "manifest": "./src/extensions/urlLink/UrlLinkFieldCustomizer.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "UrlLinkFieldCustomizerStrings": "lib/extensions/urlLink/loc/{locale}.js"
+  }
+}
