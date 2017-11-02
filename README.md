@@ -3,14 +3,14 @@
 ## Summary
 This is a SharePoint Field Customizer for showing a clickable link in a column. 
 
-For a long time, SharePoint allowed HTML markup in a calculated column. The could allow for the user to click on some custom link. This functionality was eliminated in June 2017: (https://support.microsoft.com/en-gb/help/4032106/handling-html-markup-in-sharepoint-calculated-fields). 
+For a long time, SharePoint allowed HTML markup in a calculated column. The could allow for the user to click on some custom link. This functionality was eliminated in [June 2017](https://support.microsoft.com/en-gb/help/4032106/handling-html-markup-in-sharepoint-calculated-fields). 
 
-However, a lot of people still desire and need to use this functionality--including myself. To overcome, this Field Customizer was created. 
+However, a lot of people still desire and need to use this functionality--including myself. To replace that functionality, this Field Customizer was created. 
 
 This customizer combines data in the column's description (one description per column) along with the column value (a value for each row) to form the URL link -- specific for each row. Specifically, the format of the URL is defined in the column's description and JSON data in for the column value is used as a find and replace. An example is as follows:
 Column Description: http://www.blueclarity.com/testme?param1={Param1}
-Column Value: {  "Title" : "ClickMe", "Param1"" : "SomeValue" }
-Yields: &lt;a href="http://www.blueclarity.com/testme?param1=SomeValue" target="_blank"&gt;ClickMe&lt;/a&lt;
+Column Value: {  "Title" : "ClickMe", "Param1" : "SomeValue" }
+Yields: &lt;a href="http://www.blueclarity.com/testme?param1=SomeValue" target="_blank"&gt;ClickMe&lt;/a&gt;
 
 Please note the following:
 * Title is used to define the inner text of the A element.
@@ -40,29 +40,29 @@ js-field-url-link|Jason Nadrowski ([Blue Clarity](https://www.blueclarity.com), 
 
 Version|Date|Comments
 -------|----|--------
-1.0.0|Nov 1, 2017|Initial release
+1.0.0|Oct 30, 2017|Initial release
+1.0.1|Nov 01, 2017|Updated with CDN information
 
 
 ## Debug URL for testing
 Here's a debug querystring for testing this sample.
 
-NOTE: Relace URL1 in the string below to reflect your column's name.
-
 ```
-?loadSPFX=true&debugManifestsFile=https://localhost:4321/temp/manifests.js&fieldCustomizers={"URL1":{"id":"d3ed42ea-cae8-4c22-a0d8-2cf387ba95e2","properties":{"target":"_blank"}}}
+?loadSPFX=true&debugManifestsFile=https://localhost:4321/temp/manifests.js&fieldCustomizers={"URL1":{"id":"52873a09-61fd-401e-a122-69ed104d5429","properties":{"target":"_blank"}}}
 ```
 
 Your URL will look similar to the following (replace with your domain and site address):
 ```
-https://yourtenant.sharepoint.com/sites/yoursite/Lists/yourlist/AllItems.aspx?loadSPFX=true&debugManifestsFile=https://localhost:4321/temp/manifests.js&fieldCustomizers={"URL1":{"id":"d3ed42ea-cae8-4c22-a0d8-2cf387ba95e2","properties":{"target":"_blank"}}}
+https://yourtenant.sharepoint.com/sites/yoursite/Lists/yourlist/AllItems.aspx?loadSPFX=true&debugManifestsFile=https://localhost:4321/temp/manifests.js&fieldCustomizers={"URL1":{"id":"52873a09-61fd-401e-a122-69ed104d5429","properties":{"target":"_blank"}}}
 ```
+
+**NOTE:**
+* Relace URL1 in the string ABOVE to reflect your column's name while debugging.
+* After debugging, update sharepoint/assets/elements.xml to define the columns this field customizer applies to. See notes in that file for more insights.
 
 ## Prerequisites
 
 * Office 365 Developer tenant with a classic site collection and a list with a calculated column
-
-## Features
-
 
 ## Building the project from scratch
 1. Install NodeJS
@@ -72,14 +72,22 @@ https://yourtenant.sharepoint.com/sites/yoursite/Lists/yourlist/AllItems.aspx?lo
 5. yo @microsoft/sharepoint
 6. npm install sp-pnp-js --save
 7. npm shrinkwrap
-8. gulp serve --nobrowser
+8. Edit the various files in the project
+9. gulp serve --nobrowser
 
 See [Build your first Field Customizer Extension](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/extensions/get-started/building-simple-field-customizer) for additional insight.
 
-## Contributions
+## Example Use
 
- https://onedrive.live.com/view.aspx?resid=FD0FCCE86EB1685A!10202&ithint=file%2cpptx&app=PowerPoint&authkey=!AEUWwy5MC_TEFlI
+First, add the package to your SharePoint's app catalog. Then, add the app (install) to your SharePoint Site. Once, the app has installed, edit an existing list or document library to add this special column. In the list/doc-lib settings, "Add from existing site columns". See figure below.
+![Add Columns Part 1](readme-images/AddColumns1.png)
 
- https://channel9.msdn.com/blogs/OfficeDevPnP/PnP-Web-Cast-How-to-contribute-to-Office-Dev-PnP-initiative
+Then, select one of the five URL columns. I selected URL1 in the figure beow.
+![Add Columns Part 2](readme-images/AddColumns2.png)
 
+As shown below, specify your template URL for the column Description and the appropriate JSON as the Column Formula. Feel free to rename the column name.
+![Edit Column](readme-images/EditColumn.png)
+
+The rendered column will look like the following.
+![Rendered List Item](readme-images/RenderedListItem.png)
 

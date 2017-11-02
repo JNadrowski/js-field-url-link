@@ -1,15 +1,15 @@
 {
   "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "js-field-url-link-client-side-solution",
+    "name": "URL Link Field Extension Client-Side-Solution",
     "id": "8aca78cb-9f80-4d3f-8982-1575eb5a9c43",
-    "version": "1.0.0.0",
+    "version": "1.0.0.6",
     "features": [
       {
         "title": "Application Extension - Deployment of custom action.",
         "description": "Deploys a custom action with ClientSideComponentId association",
         "id": "8daa6899-4b06-475c-8de0-25112383f70e",
-        "version": "1.0.0.0",
+        "version": "1.0.0.7",
         "assets": {
           "elementManifests": [
             "elements.xml"

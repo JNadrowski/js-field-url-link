@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+    <!-- 
+    See https://msdn.microsoft.com/en-us/library/office/ee871987(v=office.12).aspx for various column examples.
+    Each Field@ID should be a unique GUID....which you can generate from Visual Studio or any online guid generator.
+
+    NOTE: If you installed the app, changed the fields below, and then re-installed the app;
+    you may not see your field changes. If that is the case, try changing the Field@ID guids 
+    and that should resolve your issue.
+
+    Default Column that was created from the scafaldoing. 
     <Field ID="{1945fd24-fcf1-4ad9-88ac-082b8cc08326}"
             Name="SPFxPercentage"
             DisplayName="Percentage"
@@ -8,5 +17,61 @@
             Required="FALSE"
             Group="SPFx Columns"
             ClientSideComponentId="52873a09-61fd-401e-a122-69ed104d5429">
+    </Field> 
+    -->
+    <Field ID = "{b090d85d-fac1-428d-899a-943a5f530070}"
+        Name="URL1"
+        DisplayName="URL1"
+        Group="SPFx Columns"
+        Type="Calculated"
+        Description="A calculated text field used with the URL Link SPFx Client Component. See https://github.com/JNadrowski/js-field-url-link for more information."
+        Required="FALSE"
+        ResultType="Text"
+        ClientSideComponentId="52873a09-61fd-401e-a122-69ed104d5429">>
+        <Formula>="ReplaceMe"</Formula>
+    </Field>
+    <Field ID = "{a04f990e-229c-47b4-97e2-971c015c57ee}"
+        Name="URL2"
+        DisplayName="URL2"
+        Group="SPFx Columns"
+        Type="Calculated"
+        Description="A calculated text field used with the URL Link SPFx Client Component. See https://github.com/JNadrowski/js-field-url-link for more information."
+        Required="FALSE"
+        ResultType="Text"
+        ClientSideComponentId="52873a09-61fd-401e-a122-69ed104d5429">>
+        <Formula>="ReplaceMe"</Formula>
+    </Field>
+        <Field ID = "{6195f460-0254-4d4d-910e-0782c335818e}"
+        Name="URL3"
+        DisplayName="URL3"
+        Group="SPFx Columns"
+        Type="Calculated"
+        Description="A calculated text field used with the URL Link SPFx Client Component. See https://github.com/JNadrowski/js-field-url-link for more information."
+        Required="FALSE"
+        ResultType="Text"
+        ClientSideComponentId="52873a09-61fd-401e-a122-69ed104d5429">>
+        <Formula>="ReplaceMe"</Formula>
+    </Field>
+        <Field ID = "{3bc0249d-3459-4aa0-a899-b61fb85d1a78}"
+        Name="URL4"
+        DisplayName="URL4"
+        Group="SPFx Columns"
+        Type="Calculated"
+        Description="A calculated text field used with the URL Link SPFx Client Component. See https://github.com/JNadrowski/js-field-url-link for more information."
+        Required="FALSE"
+        ResultType="Text"
+        ClientSideComponentId="52873a09-61fd-401e-a122-69ed104d5429">>
+        <Formula>="ReplaceMe"</Formula>
+    </Field>
+        <Field ID = "{670fce74-be14-4d06-a077-25a15b9c9161}"
+        Name="URL5"
+        DisplayName="URL5"
+        Group="SPFx Columns"
+        Type="Calculated"
+        Description="A calculated text field used with the URL Link SPFx Client Component. See https://github.com/JNadrowski/js-field-url-link for more information."
+        Required="FALSE"
+        ResultType="Text"
+        ClientSideComponentId="52873a09-61fd-401e-a122-69ed104d5429">>
+        <Formula>="ReplaceMe"</Formula>
     </Field>
 </Elements>

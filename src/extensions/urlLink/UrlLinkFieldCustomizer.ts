@@ -34,9 +34,9 @@ export default class UrlLinkFieldCustomizer
   public onInit(): Promise<void> {
     // Add your custom initialization to this method.  The framework will wait
     // for the returned promise to resolve before firing any BaseFieldCustomizer events.
-    Log._initialize(new LogHandler((window as any).LOG_LEVEL || LogLevel.Error));
+    Log._initialize(new LogHandler((window as any).LOG_LEVEL || LogLevel.Verbose));
     Log.info(LOG_SOURCE, 'Activated UrlLinkFieldCustomizer with properties:');
-    Log.info(LOG_SOURCE, JSON.stringify(this.properties, undefined, 2));
+    //Log.info(LOG_SOURCE, JSON.stringify(this.properties, undefined, 2));
     Log.info(LOG_SOURCE, `The following string should be equal: "UrlLinkFieldCustomizer" and "${strings.Title}"`);
     
     //return Promise.resolve();
@@ -83,14 +83,14 @@ export default class UrlLinkFieldCustomizer
     {
       //We already created a promise, get that one and don't create a new one
       pnpPromise = this.pnpAllPromises.get(fieldID);
-      //console.log("Reduced work. Retrieved existing promise " + fieldID + ".");
+      //Log.info(LOG_SOURCE, "Reduced work. Retrieved existing promise " + fieldID + ".");
     }
     else
     {
       //Create new promise and add to list
       pnpPromise = pnp.sp.web.lists.getById(listID).fields.getById(fieldID).get();
       this.pnpAllPromises.set(fieldID, pnpPromise);
-      //console.log("Created NEW promise " + fieldID + ".");
+      //Log.info(LOG_SOURCE, "Created NEW promise " + fieldID + ".");
     }
 
     //Use pnp to get information on the column we are rendering. Again, we are looking for the column description.
@@ -99,18 +99,18 @@ export default class UrlLinkFieldCustomizer
 
       //Expecting fieldDescription to be a URL
       fieldDescription = item.Description.toString();
-      //console.log("Field Description: ", fieldDescription);
+      //Log.info(LOG_SOURCE, "Field Description: " + fieldDescription);
 
       //Get cell's [current row/column] value. We expect it to be a JSON string.
       //In SharePoint, one might expect the Calculated Column to be defined as:
       //   ="{  ""Title"" : ""ClickMe"", " & "  ""DocID"" : """ & [Document ID Value] & """}"
       let columnData: any;
-      //console.log("FieldValue: ", event.fieldValue);
       try {
+        //Log.info(LOG_SOURCE, "FieldValue: " + event.fieldValue);
         columnData = JSON.parse(event.fieldValue);
       }
       catch (e) {
-        console.error("Exception parsing JSON for column: ", e);
+        Log.warn(LOG_SOURCE, "Exception parsing JSON for column. " + e);
       }
 
       //Iterate through the JSON object hopefully we just got and then do a find/replace on any parameters in the URL string
@@ -122,12 +122,11 @@ export default class UrlLinkFieldCustomizer
 
           var regex = new RegExp("[{]" + key + "[}]", "g");
           fieldDescription = fieldDescription.replace(regex, columnData[key]);
-          //fieldDescription = fieldDescription.replace(regex, "Jason");
         });
-        //console.log("Updated URL:", fieldDescription);
+        //Log.info(LOG_SOURCE, "Updated URL: " + fieldDescription);
       }
       catch(e) {
-        console.error("Exception replacing URL elements from JSON object: ", e);
+        Log.warn(LOG_SOURCE, "Exception replacing URL elements from JSON object. " + e);
       }
 
       //Build-up HTML with manipulated URL from field description
@@ -141,7 +140,12 @@ export default class UrlLinkFieldCustomizer
           var divElement = document.createElement("div");
           //divElement.setAttribute("class", styles.cell);
           var aElement = document.createElement("a");
-          aElement.target = this.properties.target; // = "_blank";
+          //Log.info(LOG_SOURCE, "Properties: " + this.properties);
+          if(this.properties.target != undefined)
+            aElement.target = this.properties.target; // = "_blank";
+          else
+            aElement.target = "_blank";
+          //-
           aElement.href = fieldDescription;
         
           var aText = document.createTextNode(columnData.Title);
@@ -152,11 +156,11 @@ export default class UrlLinkFieldCustomizer
         }
         else
         {
-          console.log("No Title specified in JSON (" + event.fieldValue + ") for column row.");
+          Log.warn(LOG_SOURCE, "No Title specified in JSON (" + event.fieldValue + ") for column row.");
         }
       }
       catch (e) {
-        console.error("Exception forming clickable URL: ", e);
+        Log.warn(LOG_SOURCE, "Exception forming clickable URL. " + e);
       }
     });
   }

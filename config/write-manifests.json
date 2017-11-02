@@ -1,4 +1,4 @@
 {
   "$schema": "https://dev.office.com/json-schemas/spfx-build/write-manifests.schema.json",
-  "cdnBasePath": "<!-- PATH TO CDN -->"
+  "cdnBasePath": "<!-- Uncomment to use CDN https://publiccdn.sharepointonline.com/blueclarity.sharepoint.com/sites/ContentShare/CDN/js-field-url-link -->"
 }
